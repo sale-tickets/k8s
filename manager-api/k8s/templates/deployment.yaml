@@ -17,15 +17,15 @@ spec:
         app: manager-api-grpc
     spec:
       containers:
-        - image: nguyen040904/sale-tickets-manager-api:latest
-          name: sale-tickets-manager-api-ctn
-          imagePullPolicy: Always
-          ports:
-          - containerPort: 8000
-          - containerPort: 50000
-          volumeMounts:
-          - name: config
-            mountPath: /run/config/
+      - image: nguyen040904/sale-tickets-manager-api:latest
+        name: sale-tickets-manager-api-ctn
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        - containerPort: 50000
+        volumeMounts:
+        - name: config
+          mountPath: /run/config/
       volumes:
       - name: config
         configMap:
