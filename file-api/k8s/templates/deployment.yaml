@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  file-api
+  labels:
+    app:  file-api
+spec:
+  selector:
+    matchLabels:
+      app:  file-api
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app:  file-api
+    spec:
+      containers:
+        - name:  file-api-ctn
+          image:  nguyen040904/file-api:1.0.0
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - name: config-volume
+              mountPath: /run/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: file-api-configmap
+            # items:
+            #   - key: config.yaml
+
+      restartPolicy: Always

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: file-api-svc
+spec:
+  selector:
+    app: file-api
+  type: ClusterIP
+  ports:
+  - name: file-api-port-http
+    protocol: TCP
+    port: 8000
+    targetPort: 8000
+  - name: file-api-port-grpc
+    protocol: TCP
+    port: 50000
+    targetPort: 50000

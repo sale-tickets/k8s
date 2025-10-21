@@ -1,0 +1,26 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: file-api-configmap
+data:
+  config.yaml: |
+    app:
+      name: manager-service
+      host: 127.0.0.1
+      grpc_port: 50000
+      http_port: 8000
+    
+    database:
+      host: postgresql-ha-primary.dev
+      port: 5432
+      username: postgres
+      password: 123456
+      name: sale-tickets
+
+    jwt-key: 1111-2222-3333-4444-5555-6666
+
+    minio:
+      endpoint: minio-ha.dev:9000
+      access_key_id: admin
+      secret_access_key: 123456789aA@
+      use_ssl: false

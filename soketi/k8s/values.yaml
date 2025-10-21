@@ -68,7 +68,7 @@ app:
     - name: SOKETI_DEFAULT_APP_KEY
       value: "sale-ticket-key"
     - name: SOKETI_DEFAULT_APP_SECRET
-      value: "123456"
+      value: "123456789aA@"
 
   # Extra volumes to mount on the container.
   extraVolumeMounts: []
