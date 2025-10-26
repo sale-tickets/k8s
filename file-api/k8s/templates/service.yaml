@@ -5,13 +5,15 @@ metadata:
 spec:
   selector:
     app: file-api
-  type: ClusterIP
+  type: NodePort
   ports:
-  - name: file-api-port-http
-    protocol: TCP
-    port: 8000
-    targetPort: 8000
-  - name: file-api-port-grpc
-    protocol: TCP
-    port: 50000
-    targetPort: 50000
+    - name: file-api-port-http
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30800
+    - name: file-api-port-grpc
+      protocol: TCP
+      port: 50000
+      targetPort: 50000
+      nodePort: 30500

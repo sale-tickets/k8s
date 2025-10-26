@@ -174,10 +174,10 @@ persistence:
 ## ref: http://kubernetes.io/docs/user-guide/services/
 ##
 service:
-  type: ClusterIP
+  type: NodePort
   clusterIP: ~
   port: "9000"
-  nodePort: 32000
+  nodePort: 30900
   loadBalancerIP: ~
   externalIPs: []
   annotations: {}
@@ -200,11 +200,9 @@ service:
 ingress:
   enabled: false
   ingressClassName: ~
-  labels:
-    {}
+  labels: {}
     # node-role.kubernetes.io/ingress: platform
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # kubernetes.io/ingress.allow-http: "false"
@@ -221,10 +219,10 @@ ingress:
   #      - chart-example.local
 
 consoleService:
-  type: ClusterIP
+  type: NodePort
   clusterIP: ~
   port: "9001"
-  nodePort: 32001
+  nodePort: 30901
   loadBalancerIP: ~
   externalIPs: []
   annotations: {}
@@ -243,11 +241,9 @@ consoleService:
 consoleIngress:
   enabled: false
   ingressClassName: ~
-  labels:
-    {}
+  labels: {}
     # node-role.kubernetes.io/ingress: platform
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # kubernetes.io/ingress.allow-http: "false"
@@ -397,8 +393,7 @@ makeUserJob:
 
 ## List of service accounts to be created after minio install
 ##
-svcaccts:
-  []
+svcaccts: []
   ## accessKey, secretKey and parent user to be assigned to the service accounts
   ## Add new service accounts as explained here https://docs.min.io/community/minio-object-store/administration/identity-access-management/minio-user-management.html#access-keys
   # - accessKey: console-svcacct
@@ -438,7 +433,11 @@ makeServiceAccountJob:
 ## List of buckets to be created after minio install
 ##
 buckets:
-  []
+  - name: sale-tickets
+    policy: public
+    purge: false
+    versioning: false
+    objectlocking: false
   #   # Name of the bucket
   # - name: bucket1
   #   # Policy to be set on the
@@ -487,15 +486,13 @@ customCommandJob:
     requests:
       memory: 128Mi
   ## Additional volumes to add to the post-job.
-  extraVolumes:
-    []
+  extraVolumes: []
     # - name: extra-policies
     #   configMap:
     #     name: my-extra-policies-cm
   ## Additional volumeMounts to add to the custom commands container when
   ## running the post-job.
-  extraVolumeMounts:
-    []
+  extraVolumeMounts: []
     # - name: extra-policies
     #   mountPath: /mnt/extras/
   # Command to run after the main command on exit
@@ -520,6 +517,7 @@ environment:
   ## Please refer for comprehensive list https://docs.min.io/community/minio-object-store/reference/minio-server/minio-server.html
   ## MINIO_SUBNET_LICENSE: "License key obtained from https://subnet.min.io"
   ## MINIO_BROWSER: "off"
+  MINIO_SERVER_URL: http://172.17.8.248:30900
 
 ## The name of a secret in the same kubernetes namespace which contain secret values
 ## This can be useful for LDAP password, etc
@@ -608,8 +606,7 @@ metrics:
     # for node metrics
     relabelConfigs: {}
     # for cluster metrics
-    relabelConfigsCluster:
-      {}
+    relabelConfigsCluster: {}
       # metricRelabelings:
       #   - regex: (server|pod)
       #     action: labeldrop
