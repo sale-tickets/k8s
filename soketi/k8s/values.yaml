@@ -45,7 +45,11 @@ app:
     # Mode
     - name: SOKETI_MODE
       value: "full"
-    
+
+    # MESS
+    - name: SOKETI_DEFAULT_APP_ENABLE_CLIENT_MESSAGES
+      value: "true"
+
     # Advance
     - name: SOKETI_ADAPTER_DRIVER
       value: redis
@@ -60,7 +64,7 @@ app:
     - name: SOKETI_DB_REDIS_DB
       value: "0"
     - name: SOKETI_DB_REDIS_PASSWORD
-      value: "Nler7jOCiM"
+      value: "NnJprl9SVT"
 
     # App
     - name: SOKETI_DEFAULT_APP_ID
@@ -69,6 +73,18 @@ app:
       value: "sale-ticket-key"
     - name: SOKETI_DEFAULT_APP_SECRET
       value: "123456789aA@"
+
+    # Webhook config
+    - name: SOKETI_APP_MANAGER_DRIVER
+      value: "array"
+    - name: SOKETI_DEFAULT_APP_WEBHOOKS
+      value: |
+        [
+          {
+            "url": "http://172.17.8.248:5000/pusher/webhook",
+            "event_types": ["client_event", "channel_occupied", "channel_vacated", "member_added", "member_removed"]
+          }
+        ]
 
   # Extra volumes to mount on the container.
   extraVolumeMounts: []

@@ -212,14 +212,13 @@ master:
   ## @param master.configuration Configuration for Redis(R) master nodes
   ## ref: https://redis.io/topics/config
   ##
-  configuration: ""
+  configuration: |-
+    protected-mode no
   ## @param master.disableCommands Array with Redis(R) commands to disable on master nodes
   ## Commands will be completely disabled by renaming each to an empty string.
   ## ref: https://redis.io/topics/security#disabling-of-specific-commands
   ##
-  disableCommands:
-    - FLUSHDB
-    - FLUSHALL
+  disableCommands: []
   ## @param master.command Override default container command (useful when using custom images)
   ##
   command: []
@@ -689,14 +688,13 @@ replica:
   ## @param replica.configuration Configuration for Redis(R) replicas nodes
   ## ref: https://redis.io/topics/config
   ##
-  configuration: ""
+  configuration: |-
+    protected-mode no
   ## @param replica.disableCommands Array with Redis(R) commands to disable on replicas nodes
   ## Commands will be completely disabled by renaming each to an empty string.
   ## ref: https://redis.io/topics/security#disabling-of-specific-commands
   ##
-  disableCommands:
-    - FLUSHDB
-    - FLUSHALL
+  disableCommands: []
   ## @param replica.command Override default container command (useful when using custom images)
   ##
   command: []
@@ -1235,7 +1233,8 @@ sentinel:
   ## @param sentinel.configuration Configuration for Redis(R) Sentinel nodes
   ## ref: https://redis.io/topics/sentinel
   ##
-  configuration: ""
+  configuration: |-
+    protected-mode no
   ## @param sentinel.command Override default container command (useful when using custom images)
   ##
   command: []
@@ -1582,27 +1581,30 @@ sentinel:
     ##
     enabled: false
     service:
-        ## @param sentinel.externalAccess.service.loadBalancerIPAnnotaion Name of annotation to specify fixed IP for service in.
-        ##
-      loadBalancerIPAnnotaion: ""
+      ## @param sentinel.externalAccess.service.loadBalancerIPAnnotaion Name of annotation to specify fixed IP for service in.
+      ##
+      loadBalancerIPAnnotaion:
+        ""
         ## @param sentinel.externalAccess.service.type Type for the services used to expose every Pod
         ## At this moment only LoadBalancer is supported
         ##
       type: LoadBalancer
       ## @param sentinel.externalAccess.service.redisPort Port for the services used to expose redis-server
-        ##
+      ##
       redisPort: 6379
 
       ## @param sentinel.externalAccess.service.sentinelPort Port for the services used to expose redis-sentinel
-        ##
-      sentinelPort: 26379
+      ##
+      sentinelPort:
+        26379
         ## @param sentinel.externalAccess.service.loadBalancerIP Array of load balancer IPs for each Redis(R) node. Length must be the same as sentinel.replicaCount
         ##
       loadBalancerIP: []
         ## @param sentinel.externalAccess.service.loadBalancerClass Load Balancer class if service type is `LoadBalancer` (optional, cloud specific)
         ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
         ##
-      loadBalancerClass: ""
+      loadBalancerClass:
+        ""
         ## @param sentinel.externalAccess.service.loadBalancerSourceRanges Service Load Balancer sources
         ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
         ## e.g:
