@@ -64,7 +64,7 @@ app:
     - name: SOKETI_DB_REDIS_DB
       value: "0"
     - name: SOKETI_DB_REDIS_PASSWORD
-      value: "NnJprl9SVT"
+      value: "Us6Kx5Cl1v"
 
     # App
     - name: SOKETI_DEFAULT_APP_ID
@@ -82,7 +82,7 @@ app:
         [
           {
             "url": "http://172.17.8.248:5000/pusher/webhook",
-            "event_types": ["client_event", "channel_occupied", "channel_vacated", "member_added", "member_removed"]
+            "event_types": ["channel_occupied", "channel_vacated", "member_added", "member_removed"]
           }
         ]
 
